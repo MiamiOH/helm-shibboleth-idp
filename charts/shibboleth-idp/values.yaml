@@ -1,0 +1,112 @@
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+image:
+  repository: "tier/shib-idp"
+  tag: "4.1.0_20210324"
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+ingress:
+  enabled: true
+  hosts:
+    - shib-idp.local
+  annotations: {}
+  tls: {}
+
+preStopDelay: 60
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext:
+  runAsUser: 1000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 2000m
+    memory: 4Gi
+  requests:
+    cpu: 1000m
+    memory: 3Gi
+
+initResources:
+  limits:
+    cpu: 20m
+    memory: 50Mi
+  requests:
+    cpu: 10m
+    memory: 10Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+oidc:
+  enabled: false
+  clientID: ""
+  clientSealedSecret: ""
+  tenantID: ""
+  passphrase: ""
+
+  image:
+    repository: nexus.ci.psu.edu:5000/docker/apache-oidc
+    tag: latest
+  
+  resources: {}
+    
+# Shibboleth IdP configuration
+conf:
+  # configmaps to be mounted under conf/ as files
+  configMaps: {}
+  sealedSecrets: {}
+    # attribute-resolver.xml: nameOfconfigMapOrsecret
+
+  # contents to be mounted under conf/ as files
+  values: {}
+    # some-file.xml: |
+    #   file contents
+    #   on multiple lines
+  
+  # data-only container with conf/ files located under /conf
+  image: {}
+    # repository: "nexus.ci.psu.edu:5000/docker/shib-idp-conf"
+    # tag: "1.0"
+    # pullPolicy: Always    
+
+metadata:
+  image: {}
+
+properties:
+  # configmaps and secrets whose keys will be appended to conf/idp.properties on startup
+  # keys are converted if necessary:
+  #  IDP_BAR -> idp.bar
+  configMaps: {}
+  sealedSecrets: {}
+
+  # raw properties to be appended to conf/idp.properties
+  values: {}
+
+credentials:
+  # configmaps and secrets whose keys will be mounted under credentials/ as files
+  configMaps: {}
+  sealedSecrets: {}
+  values: {}  

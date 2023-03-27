@@ -1,11 +1,11 @@
 # helm-template
 
-The chart source can be found here: https://github.com/miamioh/helm-template
+The chart source can be found here: https://github.com/miamioh/helm-shibboleth-idp
 
 ## TL;DR
 
 ```console
-helm install miamioh/helm-template
+helm install miamioh/helm-shibboleth-idp
 ```
 
 ## Introduction
@@ -15,7 +15,7 @@ helm install miamioh/helm-template
 To install the chart with the release name `my-release`:
 
 ```console
-helm install miamioh/helm-template --name my-release
+helm install miamioh/helm-shibboleth-idp --name my-release
 ```
 
 The command deploys helm stuff in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -42,14 +42,14 @@ The following table lists the configurable parameters of the heml-template chart
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install miamioh/helm-template --name my-release \
+helm install miamioh/helm-shibboleth-idp --name my-release \
   --set=image.repository=my-image
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-helm install miamioh/helm-template --name my-release -f values.yaml
+helm install miamioh/helm-shibboleth-idp --name my-release -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
