@@ -3,7 +3,7 @@ name: Release Dev Charts
 on:
   push:
     branches:
-      - 'dev/*'
+      - 'main'
 
 jobs:
   release:
@@ -20,7 +20,5 @@ jobs:
         # https://github.com/marketplace/actions/helm-chart-releaser
       - name: Helm Chart Releaser
         uses: helm/chart-releaser-action@v1.5.0
-        with: 
-          config: dev-chart-config.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
