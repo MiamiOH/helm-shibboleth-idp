@@ -60,19 +60,7 @@ tolerations: []
 
 affinity: {}
 
-oidc:
-  enabled: false
-  clientID: ""
-  clientSealedSecret: ""
-  tenantID: ""
-  passphrase: ""
-
-  image:
-    repository: nexus.ci.psu.edu:5000/docker/apache-oidc
-    tag: latest
-  
-  resources: {}
-    
+   
 # Shibboleth IdP configuration
 conf:
   # configmaps to be mounted under conf/ as files

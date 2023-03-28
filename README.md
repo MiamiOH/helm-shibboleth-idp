@@ -34,10 +34,78 @@ The command removes all the helm stuff associated with the chart and deletes the
 
 The following table lists the configurable parameters of the heml-template chart and their default values.
 
-| Parameter          | Description                    | Default                                 |
-| ------------------ | ------------------------------ | --------------------------------------- |
-| `image.repository` | Repository for container image | `k8s.gcr.io/kubernetes-dashboard-amd64` |
-| `image.tag`        | Image tag service              | `false`                                 |
+| Parameter                           | Description                                                                                                            | Default            |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ | --- |
+| `image.repository`                  | Repository for container image                                                                                         | `tier/shib-idp`    |
+| `image.tag`                         | Image tag                                                                                                              | `4.1.0_20210324`   |
+| `image.pullPolicy`                  | Pull policy                                                                                                            | `Always`           |
+| `imagePullSecrets`                  |                                                                                                                        | `[]`               |
+| `nameOverride`                      |                                                                                                                        | ``                 |
+| `fullnameOverride`                  |                                                                                                                        | ``                 |
+| `replicaCount`                      |                                                                                                                        | 1                  |
+| `ingress.enabled`                   |                                                                                                                        | `true`             |
+| `ingress.hosts`                     |                                                                                                                        | `[shib-idp.local]` |
+| `ingress.annotations`               |                                                                                                                        | `{}`               |
+| `ingress.tls`                       |                                                                                                                        | `{}`               |
+| `preStopDelay`                      |                                                                                                                        | 60                 |
+| `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
+| `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |
+| `serviceAccount.name`               | The name of the service account to use. If not set and create is true, a name is generated using the fullname template | ``                 |
+| `podSecurityContext.runAsUser`      |                                                                                                                        | 1000               |
+| `securityContext.capabilities.drop` |                                                                                                                        | `[ALL]`            |
+| `securityContext.runAsNonRoot`      |                                                                                                                        | true               |
+| `securityContext.runAsUser`         |                                                                                                                        | 1000               |
+| `resources.limits.cpu`              |                                                                                                                        | 2000m              |
+| `resources.limits.memory`           |                                                                                                                        | 4Gi                |
+| `resources.requests.cpu`            |                                                                                                                        | 1000m              |
+| `resources.requests.memory`         |                                                                                                                        | 3Gi                |
+| `initResources.limits.cpu`          |                                                                                                                        | 20m                |
+| `initResources.limits.memory`       |                                                                                                                        | 50Mi               |
+| `initResources.requests.cpu`        |                                                                                                                        | 10m                |
+| `initResources.requests.memory`     |                                                                                                                        | 10Mi               |
+| `nodeSelector`                      |                                                                                                                        | {}                 |
+| `tolerations`                       |                                                                                                                        | []                 |
+| `affinity`                          |                                                                                                                        | {}                 |     |
+
+<!--
+# Shibboleth IdP configuration
+conf:
+  # configmaps to be mounted under conf/ as files
+  configMaps: {}
+  sealedSecrets: {}
+    # attribute-resolver.xml: nameOfconfigMapOrsecret
+
+  # contents to be mounted under conf/ as files
+  values: {}
+    # some-file.xml: |
+    #   file contents
+    #   on multiple lines
+
+  # data-only container with conf/ files located under /conf
+  image: {}
+    # repository: "nexus.ci.psu.edu:5000/docker/shib-idp-conf"
+    # tag: "1.0"
+    # pullPolicy: Always
+
+metadata:
+  image: {}
+
+properties:
+  # configmaps and secrets whose keys will be appended to conf/idp.properties on startup
+  # keys are converted if necessary:
+  #  IDP_BAR -> idp.bar
+  configMaps: {}
+  sealedSecrets: {}
+
+  # raw properties to be appended to conf/idp.properties
+  values: {}
+
+credentials:
+  # configmaps and secrets whose keys will be mounted under credentials/ as files
+  configMaps: {}
+  sealedSecrets: {}
+  values: {}
+   -->
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 

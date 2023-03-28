@@ -49,37 +49,6 @@ spec:
             {{- toYaml .Values.initResources | nindent 12 }}          
       {{- end }}
       containers:
-        {{ if .Values.oidc.enabled }}
-        - name: apache-oidc
-          image: "{{ .Values.oidc.image.repository }}:{{ .Values.oidc.image.tag }}"
-          imagePullPolicy: {{ .Values.oidc.image.pullPolicy }}
-          terminationMessagePolicy: FallbackToLogsOnError
-          ports:
-            - name: http-apache
-              containerPort: 8081
-              protocol: TCP
-          env:
-            - name: APACHE2_PORT
-              value: "8081"
-          envFrom:
-            - secretRef:
-                name: {{ include "shib-idp.fullname" . }}-oidc
-          volumeMounts:
-            - mountPath: /etc/apache2/conf-enabled/oidc.conf
-              name: apache-oidc-conf
-              subPath: oidc.conf
-              readOnly: true
-          livenessProbe:
-            httpGet:
-              path: /idp/status
-              port: http-apache
-          readinessProbe:
-            httpGet:
-              path: /idp/status
-              port: http-apache
-          resources:
-            {{- toYaml .Values.oidc.resources | nindent 12 }}
-        {{- end }}
         - name: shibboleth-idp
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
