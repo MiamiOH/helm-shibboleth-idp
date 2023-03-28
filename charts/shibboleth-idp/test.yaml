@@ -1,0 +1,35 @@
+oidc:
+  enabled: true
+
+conf:
+  configMaps:
+    configmap.xml: configmap-xml
+  sealedSecrets:
+    secret.xml: secret-xml
+  values:
+    value.xml: value-xml
+  image:
+    repository: my/config
+    tag: latest
+
+metadata:
+  image:
+    repository: my/metadata
+    tag: latest
+
+properties:
+  configMaps:
+    property.configmap: property-configmap
+  sealedSecrets:
+    property.secret: property-secret
+  values:
+    property.value: property value
+
+credentials:
+  configMaps:
+    credential.configmap: cred-configmap
+  sealedSecrets:
+    credential.secret: cred-secret
+  values:
+    credential.value: cred value
+
