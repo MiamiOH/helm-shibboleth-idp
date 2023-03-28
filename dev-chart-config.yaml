@@ -1,3 +1,2 @@
 mark_as_latest: false
 push: true
-release-name-template: "{{ .Name }}-{{ .Version }-dev"
