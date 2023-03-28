@@ -35,7 +35,7 @@ The command removes all the helm stuff associated with the chart and deletes the
 The following table lists the configurable parameters of the heml-template chart and their default values.
 
 | Parameter                           | Description                                                                                                            | Default            |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ | --- |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `image.repository`                  | Repository for container image                                                                                         | `tier/shib-idp`    |
 | `image.tag`                         | Image tag                                                                                                              | `4.1.0_20210324`   |
 | `image.pullPolicy`                  | Pull policy                                                                                                            | `Always`           |
@@ -65,7 +65,7 @@ The following table lists the configurable parameters of the heml-template chart
 | `initResources.requests.memory`     |                                                                                                                        | 10Mi               |
 | `nodeSelector`                      |                                                                                                                        | {}                 |
 | `tolerations`                       |                                                                                                                        | []                 |
-| `affinity`                          |                                                                                                                        | {}                 |     |
+| `affinity`                          |                                                                                                                        | {}                 |
 
 <!--
 # Shibboleth IdP configuration
