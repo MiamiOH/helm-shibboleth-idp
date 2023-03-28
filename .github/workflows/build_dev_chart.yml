@@ -1,9 +1,8 @@
-name: Release Charts
+name: Release Dev Charts
 
 on:
   push:
     branches:
-      - main
       - 'dev/*'
 
 jobs:
@@ -21,5 +20,9 @@ jobs:
         # https://github.com/marketplace/actions/helm-chart-releaser
       - name: Helm Chart Releaser
         uses: helm/chart-releaser-action@v1.5.0
+        with:
+          mark_as_latest: false
+          push: true
+          release-name-template: "{{ .Name }}-{{ .Version }-dev"
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
