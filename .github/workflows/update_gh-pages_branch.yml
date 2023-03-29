@@ -23,7 +23,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Merge branch
-        uses: devmasx/merge-branch@1.4.0
+        uses: devmasx/merge-branch@master
         with:
           type: now
           message: Update gh-pages branch
