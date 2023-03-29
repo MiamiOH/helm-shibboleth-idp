@@ -1,0 +1,214 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shib-idp.fullname" . }}
+  labels:
+    {{- include "shib-idp.labels" . | nindent 4 }}
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "shib-idp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shib-idp.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "shib-idp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.conf.image }}
+      initContainers:
+        - name: conf
+          image: "{{ .Values.conf.image.repository }}:{{ .Values.conf.image.tag }}"
+          imagePullPolicy: {{ .Values.conf.image.pullPolicy | default "Always" }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            - mountPath: /opt/shibboleth-idp/conf
+              name: conf
+          command: ['sh', '-c', 'cp -R /conf/* /opt/shibboleth-idp/conf']
+          resources:
+            {{- toYaml .Values.initResources | nindent 12 }}          
+      {{- end }}
+      {{- if .Values.metadata.image }}
+        - name: metadata
+          image: "{{ .Values.metadata.image.repository }}:{{ .Values.metadata.image.tag }}"
+          imagePullPolicy: {{ .Values.conf.image.pullPolicy | default "Always" }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          volumeMounts:
+            - mountPath: /opt/shibboleth-idp/metadata
+              name: metadata
+          command: ['sh', '-c', 'cp -R /metadata/* /opt/shibboleth-idp/metadata']
+          resources:
+            {{- toYaml .Values.initResources | nindent 12 }}          
+      {{- end }}
+      containers:
+        - name: shibboleth-idp
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          ports:
+            - name: http-tomcat
+              containerPort: 8080
+              protocol: TCP
+            - name: https-tomcat
+              containerPort: 8443
+              protocol: TCP
+          {{- if .Values.properties.values  }}
+          env:
+            {{- range $k, $v := .Values.properties.values }}
+            - name: IDP_PROPERTY_{{ $k }}
+              value: {{ $v | quote }}
+            {{- end }}
+          {{- end }}
+          livenessProbe:
+            exec:
+              command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
+          readinessProbe:
+            exec:
+              command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - "/bin/sleep"
+                  - "{{ .Values.preStopDelay }}"
+          {{- if or .Values.conf.image .Values.conf.configMaps .Values.conf.sealedSecrets .Values.conf.values .Values.properties.configMaps .Values.properties.sealedSecrets .Values.properties.values }}
+          volumeMounts:
+            {{- if .Values.conf.image }}
+            - mountPath: /opt/shibboleth-idp/conf
+              name: conf
+            {{- end }}
+            {{- if .Values.metadata.image }}
+            - mountPath: /opt/shibboleth-idp/metadata
+              name: metadata
+            {{- end }}
+
+            {{- range $k, $v := .Values.conf.configMaps }}
+            - mountPath: /opt/shibboleth-idp/conf/{{ $k }}
+              name: conf-cm-{{ $v }}
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}
+            {{- range $k, $v := .Values.conf.sealedSecrets }}
+            - mountPath: /opt/shibboleth-idp/conf/{{ $k }}
+              name: conf-sec-{{ $v }}
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}    
+            {{- range $k, $v := .Values.conf.values }}
+            - mountPath: /opt/shibboleth-idp/conf/{{ $k }}
+              name: conf-values
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}
+
+            {{- range $k, $v := .Values.credentials.configMaps }}
+            - mountPath: /opt/shibboleth-idp/credentials/{{ $k }}
+              name: creds-cm-{{ $v }}
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}
+            {{- range $k, $v := .Values.credentials.sealedSecrets }}
+            - mountPath: /opt/shibboleth-idp/credentials/{{ $k }}
+              name: creds-secrets
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}    
+            {{- range $k, $v := .Values.credentials.values }}
+            - mountPath: /opt/shibboleth-idp/credentials/{{ $k }}
+              name: creds-values
+              subPath: {{ $k | quote }}
+              readOnly: true
+            {{- end }}
+
+            {{- range .Values.properties.configMaps }}
+            - mountPath: /props/{{ . }}
+              name: prop-cm-{{ . }}
+              readOnly: true
+            {{- end }}                
+            {{- if .Values.properties.sealedSecrets }}
+            - mountPath: /props/secrets
+              name: prop-secrets
+              readOnly: true
+            {{- end }}              
+          {{- end }}           
+      {{- if or .Values.conf.image .Values.metadata.image .Values.conf.configMaps .Values.conf.sealedSecrets .Values.conf.values .Values.properties.configMaps .Values.credentials.values .Values.credentials.sealedSecrets .Values.credentials.configMaps }}
+      volumes:
+      {{- if .Values.conf.image }}
+        - name: conf
+          emptyDir: {}
+      {{- end }}
+      {{- if .Values.metadata.image }}
+        - name: metadata
+          emptyDir: {}
+      {{- end }}
+      {{- if .Values.oidc.enabled }}
+        - name: apache-oidc-conf
+          configMap: 
+            name: {{ include "shib-idp.fullname" . }}-oidc
+      {{- end }}
+
+      {{-  range $k, $v := .Values.conf.configMaps }}
+        - name: conf-cm-{{ $v }}
+          configMap:
+            name: {{ $v }}
+      {{- end }}
+      {{- if .Values.conf.sealedSecrets }}
+        - name: conf-secrets
+          secret:
+            secretName: {{ include "shib-idp.fullname" . }}-conf
+      {{- end }}      
+      {{- if .Values.conf.values }}
+        - name: conf-values
+          configMap:
+            name: {{ include "shib-idp.fullname" . }}-conf
+      {{- end }}            
+
+      {{-  range $k, $v := .Values.credentials.configMaps }}
+        - name: creds-cm-{{ $k }}
+          configMap:
+            name: {{ $v }}
+      {{- end }}
+      {{- if .Values.credentials.sealedSecrets }}
+        - name: creds-secrets
+          secret:
+            secretName: {{ include "shib-idp.fullname" . }}-creds
+      {{- end }}      
+      {{- if .Values.credentials.values }}
+        - name: creds-values
+          configMap:
+            name: {{ include "shib-idp.fullname" . }}-creds
+      {{- end }}            
+
+      {{- range $k, $v := .Values.properties.configMaps }}
+        - name: prop-cm-{{ $v }}
+          configMap:
+            name: {{ $v }}
+      {{- end }}    
+      {{- if .Values.properties.sealedSecrets }}
+        - name: prop-secrets
+          secret:
+            secretName: {{ include "shib-idp.fullname" . }}-props
+      {{- end }}
+      {{- end }}          
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
