@@ -19,6 +19,8 @@ jobs:
       - name: Merge branch
         uses: devmasx/merge-branch@1.4.0
         with:
-          branch: gh-pages
+          type: now
+          message: Update gh-pages branch
+          target_branch: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
           force: false
