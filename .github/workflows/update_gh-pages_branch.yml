@@ -8,7 +8,13 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+  
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  
 jobs:
   sync-branch:
     name: Update gh-pages branch
@@ -22,5 +28,4 @@ jobs:
           type: now
           message: Update gh-pages branch
           target_branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
-          force: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
