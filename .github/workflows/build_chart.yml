@@ -1,4 +1,4 @@
-name: Release Dev Charts
+name: Release Latest Charts
 
 on:
   push:
