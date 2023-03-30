@@ -3,6 +3,16 @@ entries:
   shibboleth-idp:
   - apiVersion: v2
     appVersion: "4.1"
+    created: "2023-03-30T00:30:34.458530202Z"
+    description: A Helm chart for shibboleth IdP
+    digest: e75c7a1b41a82c9ad292b6ad7f200ea7c508d61193f967b9a633b56388673e2c
+    name: shibboleth-idp
+    type: application
+    urls:
+    - https://github.com/MiamiOH/helm-shibboleth-idp/releases/download/shibboleth-idp-0.1.6/shibboleth-idp-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: "4.1"
     created: "2023-03-29T20:26:58.50448761Z"
     description: A Helm chart for shibboleth IdP
     digest: 85ba1134d959809ded8d7e2863face9d5674777a8d1efaecb28569538232d359
@@ -51,4 +61,4 @@ entries:
     urls:
     - https://github.com/MiamiOH/helm-shibboleth-idp/releases/download/shibboleth-idp-0.1.1/shibboleth-idp-0.1.1.tgz
     version: 0.1.1
-generated: "2023-03-29T20:26:58.50451331Z"
+generated: "2023-03-30T00:30:34.458556802Z"
