@@ -22,7 +22,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: http
+                  number: {{ $port }}
     {{- end }}
   {{- if .Values.ingress.tls }}
   tls:

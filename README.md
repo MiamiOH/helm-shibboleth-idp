@@ -10,6 +10,8 @@ helm install miamioh/helm-shibboleth-idp
 
 ## Introduction
 
+This helm chart was based on one written by [Penn State Engineering](https://staging.artifacthub.io/packages/search?repo=psu-swe) discovered on [ArtifactHub](https://staging.artifacthub.io/packages/helm/psu-swe/shib-idp)
+
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
@@ -47,6 +49,7 @@ The following table lists the configurable parameters of the heml-template chart
 | `ingress.hosts`                     |                                                                                                                        | `[shib-idp.local]` |
 | `ingress.annotations`               |                                                                                                                        | `{}`               |
 | `ingress.tls`                       |                                                                                                                        | `{}`               |
+| `ingress.port`                      |                                                                                                                        | 443                |
 | `preStopDelay`                      |                                                                                                                        | 60                 |
 | `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
 | `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |

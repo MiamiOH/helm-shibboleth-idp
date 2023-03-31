@@ -16,6 +16,8 @@ ingress:
     - shib-idp.local
   annotations: {}
   tls: {}
+  port: 443
+
 
 preStopDelay: 60
 
