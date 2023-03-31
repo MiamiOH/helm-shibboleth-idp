@@ -18,10 +18,6 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
         # https://github.com/marketplace/actions/helm-chart-releaser
-
-      - name: Install Helm
-        uses: azure/setup-helm@v3
-        
       - name: Helm Chart Releaser
         uses: helm/chart-releaser-action@v1.5.0
         with: 
