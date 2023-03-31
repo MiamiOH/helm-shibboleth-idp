@@ -49,7 +49,6 @@ The following table lists the configurable parameters of the heml-template chart
 | `ingress.hosts`                     |                                                                                                                        | `[shib-idp.local]` |
 | `ingress.annotations`               |                                                                                                                        | `{}`               |
 | `ingress.tls`                       |                                                                                                                        | `{}`               |
-| `ingress.port`                      |                                                                                                                        | 443                |
 | `preStopDelay`                      |                                                                                                                        | 60                 |
 | `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
 | `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |
