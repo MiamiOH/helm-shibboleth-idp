@@ -151,11 +151,6 @@ spec:
         - name: metadata
           emptyDir: {}
       {{- end }}
-      {{- if .Values.oidc.enabled }}
-        - name: apache-oidc-conf
-          configMap: 
-            name: {{ include "shib-idp.fullname" . }}-oidc
-      {{- end }}
 
       {{-  range $k, $v := .Values.conf.configMaps }}
         - name: conf-cm-{{ $v }}
