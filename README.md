@@ -36,38 +36,38 @@ The command removes all the helm stuff associated with the chart and deletes the
 
 The following table lists the configurable parameters of the heml-template chart and their default values.
 
-| Parameter                           | Description                                                                                                            | Default            |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `image.repository`                  | Repository for container image                                                                                         | `tier/shib-idp`    |
-| `image.tag`                         | Image tag                                                                                                              | `4.1.0_20210324`   |
-| `image.pullPolicy`                  | Pull policy                                                                                                            | `Always`           |
-| `imagePullSecrets`                  |                                                                                                                        | `[]`               |
-| `nameOverride`                      |                                                                                                                        | ``                 |
-| `fullnameOverride`                  |                                                                                                                        | ``                 |
-| `replicaCount`                      |                                                                                                                        | 1                  |
-| `ingress.enabled`                   |                                                                                                                        | `true`             |
-| `ingress.hosts`                     |                                                                                                                        | `[shib-idp.local]` |
-| `ingress.annotations`               |                                                                                                                        | `{}`               |
-| `ingress.tls`                       |                                                                                                                        | `{}`               |
-| `preStopDelay`                      |                                                                                                                        | 60                 |
-| `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
-| `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |
-| `serviceAccount.name`               | The name of the service account to use. If not set and create is true, a name is generated using the fullname template | ``                 |
-| `podSecurityContext.runAsUser`      |                                                                                                                        | 1000               |
-| `securityContext.capabilities.drop` |                                                                                                                        | `[ALL]`            |
-| `securityContext.runAsNonRoot`      |                                                                                                                        | true               |
-| `securityContext.runAsUser`         |                                                                                                                        | 1000               |
-| `resources.limits.cpu`              |                                                                                                                        | 2000m              |
-| `resources.limits.memory`           |                                                                                                                        | 4Gi                |
-| `resources.requests.cpu`            |                                                                                                                        | 1000m              |
-| `resources.requests.memory`         |                                                                                                                        | 3Gi                |
-| `initResources.limits.cpu`          |                                                                                                                        | 20m                |
-| `initResources.limits.memory`       |                                                                                                                        | 50Mi               |
-| `initResources.requests.cpu`        |                                                                                                                        | 10m                |
-| `initResources.requests.memory`     |                                                                                                                        | 10Mi               |
-| `nodeSelector`                      |                                                                                                                        | {}                 |
-| `tolerations`                       |                                                                                                                        | []                 |
-| `affinity`                          |                                                                                                                        | {}                 |
+| Parameter                           | Description                                                                                                            | Default                  |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `image.repository`                  | Repository for container image                                                                                         | `i2incommon/shib-idp-ui` |
+| `image.tag`                         | Image tag                                                                                                              | `1.17.2`                 |
+| `image.pullPolicy`                  | Pull policy                                                                                                            | `Always`                 |
+| `imagePullSecrets`                  |                                                                                                                        | `[]`                     |
+| `nameOverride`                      |                                                                                                                        | ``                       |
+| `fullnameOverride`                  |                                                                                                                        | ``                       |
+| `replicaCount`                      |                                                                                                                        | 1                        |
+| `ingress.enabled`                   |                                                                                                                        | `true`                   |
+| `ingress.hosts`                     |                                                                                                                        | `[shib-idp.local]`       |
+| `ingress.annotations`               |                                                                                                                        | `{}`                     |
+| `ingress.tls`                       |                                                                                                                        | `{}`                     |
+| `preStopDelay`                      |                                                                                                                        | 60                       |
+| `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`                   |
+| `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                       |
+| `serviceAccount.name`               | The name of the service account to use. If not set and create is true, a name is generated using the fullname template | ``                       |
+| `podSecurityContext.runAsUser`      |                                                                                                                        | 1000                     |
+| `securityContext.capabilities.drop` |                                                                                                                        | `[ALL]`                  |
+| `securityContext.runAsNonRoot`      |                                                                                                                        | true                     |
+| `securityContext.runAsUser`         |                                                                                                                        | 1000                     |
+| `resources.limits.cpu`              |                                                                                                                        | 2000m                    |
+| `resources.limits.memory`           |                                                                                                                        | 4Gi                      |
+| `resources.requests.cpu`            |                                                                                                                        | 1000m                    |
+| `resources.requests.memory`         |                                                                                                                        | 3Gi                      |
+| `initResources.limits.cpu`          |                                                                                                                        | 20m                      |
+| `initResources.limits.memory`       |                                                                                                                        | 50Mi                     |
+| `initResources.requests.cpu`        |                                                                                                                        | 10m                      |
+| `initResources.requests.memory`     |                                                                                                                        | 10Mi                     |
+| `nodeSelector`                      |                                                                                                                        | {}                       |
+| `tolerations`                       |                                                                                                                        | []                       |
+| `affinity`                          |                                                                                                                        | {}                       |
 
 <!--
 # Shibboleth IdP configuration

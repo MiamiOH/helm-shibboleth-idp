@@ -4,8 +4,8 @@ fullnameOverride: ""
 replicaCount: 1
 
 image:
-  repository: "tier/shib-idp"
-  tag: "4.1.0_20210324"
+  repository: "i2incommon/shib-idp-ui"
+  tag: "1.17.2"
   pullPolicy: Always
 
 imagePullSecrets: []
