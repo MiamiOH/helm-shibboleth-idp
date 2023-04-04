@@ -5,7 +5,7 @@ replicaCount: 1
 
 image:
   repository: "tier/shib-idp"
-  tag: "4.1.0_20210324"
+  tag: "4.3.1_20230330"
   pullPolicy: Always
 
 imagePullSecrets: []

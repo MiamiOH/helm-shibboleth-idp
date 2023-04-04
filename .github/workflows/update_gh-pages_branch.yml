@@ -1,0 +1,31 @@
+name: Update gh-pages files
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: 
+      - 'main'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  
+jobs:
+  sync-branch:
+    name: Update gh-pages branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Merge branch
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          message: Update gh-pages branch
+          target_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
