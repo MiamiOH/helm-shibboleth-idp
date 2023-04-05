@@ -1,0 +1,6 @@
+# We should Probably add more output data to this file
+
+Go to: 
+{{- range .Values.ingress.hosts }}
+    https://{{ . }}/idp/status  to verify that it is up
+{{- end }}
