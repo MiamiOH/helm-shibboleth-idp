@@ -11,19 +11,17 @@ metadata:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- end  }}
 spec:
-  rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
+  rules:    
+    - host: {{ .Values.ingress.hosts | quote }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.paths | quote }}
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: 443
-    {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- toYaml .Values.ingress.tls | nindent 4}}
