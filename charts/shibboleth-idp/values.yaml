@@ -4,7 +4,7 @@ fullnameOverride: ""
 replicaCount: 1
 
 image:
-  repository: "tier/shib-idp"
+  repository: "i2incommon/shib-idp"
   tag: "4.3.1_20230330"
   pullPolicy: Always
 
@@ -27,16 +27,6 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-
-podSecurityContext:
-  runAsUser: 1000
-
-securityContext:
-  capabilities:
-    drop:
-    - ALL
-  runAsNonRoot: true
-  runAsUser: 1000
 
 resources:
   limits:
@@ -75,13 +65,17 @@ conf:
     #   on multiple lines
   
   # data-only container with conf/ files located under /conf
-  image: {}
+  image: 
+    repository: "miamioh/shib-idp-conf"
+    tag: "latest"
     # repository: "nexus.ci.psu.edu:5000/docker/shib-idp-conf"
     # tag: "1.0"
     # pullPolicy: Always    
 
 metadata:
-  image: {}
+  image: 
+    repository: "miamioh/shib-idp-metadata"
+    tag: "latest"
 
 properties:
   # configmaps and secrets whose keys will be appended to conf/idp.properties on startup
@@ -97,4 +91,7 @@ credentials:
   # configmaps and secrets whose keys will be mounted under credentials/ as files
   configMaps: {}
   sealedSecrets: {}
-  values: {}  
+  values: 
+    secrets.properties: |- 
+      idp.authn.LDAP.bindDNCredential: password
+  #TODO #10 Need to figure out how to best pass this info
