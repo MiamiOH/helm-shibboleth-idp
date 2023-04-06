@@ -28,16 +28,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-# podSecurityContext:
-#   runAsUser: 1000
-
-securityContext:
-  capabilities:
-    drop:
-    - ALL
-  runAsNonRoot: true
-  runAsUser: 1000
-
 resources:
   limits:
     cpu: 2000m

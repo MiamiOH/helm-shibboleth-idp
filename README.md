@@ -53,10 +53,6 @@ The following table lists the configurable parameters of the heml-template chart
 | `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
 | `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |
 | `serviceAccount.name`               | The name of the service account to use. If not set and create is true, a name is generated using the fullname template | ``                 |
-| `podSecurityContext.runAsUser`      |                                                                                                                        | 1000               |
-| `securityContext.capabilities.drop` |                                                                                                                        | `[ALL]`            |
-| `securityContext.runAsNonRoot`      |                                                                                                                        | true               |
-| `securityContext.runAsUser`         |                                                                                                                        | 1000               |
 | `resources.limits.cpu`              |                                                                                                                        | 2000m              |
 | `resources.limits.memory`           |                                                                                                                        | 4Gi                |
 | `resources.requests.cpu`            |                                                                                                                        | 1000m              |
