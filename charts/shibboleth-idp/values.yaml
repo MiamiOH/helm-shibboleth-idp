@@ -12,10 +12,11 @@ imagePullSecrets: []
 
 ingress:
   enabled: true
-  hosts:
-    - shib-idp.local
+  hosts: shib-idp.local
+  path: "/"
   annotations: {}
   tls: {}
+
 
 preStopDelay: 60
 
