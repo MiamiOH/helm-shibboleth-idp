@@ -12,9 +12,11 @@ imagePullSecrets: []
 
 ingress:
   enabled: true
-  hosts: shib-idp.local
-  path: "/"
   annotations: {}
+  className: nginx
+  host: shib-idp.local
+  path: /
+  pathType: ImplementationSpecific
   tls: {}
 
 
