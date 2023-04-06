@@ -11,12 +11,13 @@ metadata:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- end  }}
 spec:
+  ingressClassName: {{ .Values.ingress.classname }}
   rules:    
-    - host: {{ .Values.ingress.hosts | quote }}
+    - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.paths | quote }}
-            pathType: ImplementationSpecific
+          - path: {{ .Values.ingress.path }}
+            pathType: {{ .Values.ingress.pathType }}
             backend:
               service:
                 name: {{ $fullName }}
