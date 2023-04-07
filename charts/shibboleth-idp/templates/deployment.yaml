@@ -21,8 +21,10 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ include "shib-idp.serviceAccountName" . }}
-      {{- if .Values.conf.image }}
+      {{- if or .Values.conf.image .Values.metadata.image }}
       initContainers:
+      {{- end }}
+      {{- if .Values.conf.image }}
         - name: conf
           image: "{{ .Values.conf.image.repository }}:{{ .Values.conf.image.tag }}"
           imagePullPolicy: {{ .Values.conf.image.pullPolicy | default "Always" }}
