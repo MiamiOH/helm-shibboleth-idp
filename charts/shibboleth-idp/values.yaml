@@ -94,7 +94,7 @@ credentials:
   # configmaps and secrets whose keys will be mounted under credentials/ as files
   configMaps: {}
   sealedSecrets: {}
-  values: 
-    secrets.properties: |- 
-      idp.authn.LDAP.bindDNCredential: password
+  values: {}
+    # secrets.properties: |- 
+    #   idp.authn.LDAP.bindDNCredential: password
   #TODO #10 Need to figure out how to best pass this info

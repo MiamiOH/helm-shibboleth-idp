@@ -54,10 +54,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
-            - name: http-tomcat
-              containerPort: 8080
-              protocol: TCP
-            - name: https-tomcat
+            - name: https
               containerPort: 8443
               protocol: TCP
           {{- if .Values.properties.values  }}
@@ -67,12 +64,12 @@ spec:
               value: {{ $v | quote }}
             {{- end }}
           {{- end }}
-          livenessProbe:
-            exec:
-              command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
-          readinessProbe:
-            exec:
-              command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
+          # livenessProbe:
+          #   exec:
+          #     command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
+          # readinessProbe:
+          #   exec:
+          #     command: ["/usr/bin/curl", "-s", "http://localhost:8080/idp/status"]
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           lifecycle:

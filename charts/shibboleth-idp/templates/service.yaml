@@ -6,11 +6,7 @@ metadata:
     {{- include "shib-idp.labels" . | nindent 4 }}
 spec:
   ports:
-    - port: 80
-      targetPort: http-tomcat
-      protocol: TCP
-      name: http
-    - port: 443
+    - port: 8443
       targetPort: https-tomcat
       protocol: TCP
       name: https
