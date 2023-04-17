@@ -1,6 +1,6 @@
 apiVersion: v2
 name: shibboleth-idp
-description: A Helm chart for shibboleth IdP
+description: A Helm chart for the shibboleth IdP
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -15,7 +15,18 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.4.1
+#
+# Rule:             X      .      X      .      X
+#                   |             |             |
+#                   |             |          Bug Fix (Backwards Compatible)
+#                   |             |
+#                   |        Minor Change
+#                   |    Backwards Compatible
+#                   |
+#              Major Change
+#       Non-Backwards Compatible
+#
+version: 0.4.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
