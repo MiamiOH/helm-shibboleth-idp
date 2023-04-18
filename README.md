@@ -53,6 +53,9 @@ The following table lists the configurable parameters of the heml-template chart
 | `serviceAccount.create`             | Specifies whether a service account should be created                                                                  | `true`             |
 | `serviceAccount.annotations`        | Annotations to add to the service account                                                                              | {}                 |
 | `serviceAccount.name`               | The name of the service account to use. If not set and create is true, a name is generated using the fullname template | ``                 |
+| `service.port`                      | External Port                                                                                                          | 443                |
+| `service.containerPort`             | Port used by the container                                                                                             | 8080               | 
+| `service.type `                     |                                                                                                                        | ClusterIP          |
 | `resources.limits.cpu`              |                                                                                                                        | 2000m              |
 | `resources.limits.memory`           |                                                                                                                        | 4Gi                |
 | `resources.requests.cpu`            |                                                                                                                        | 1000m              |
